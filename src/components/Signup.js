@@ -10,11 +10,18 @@ class Signup extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      confirm: ""
     };
 
     this.validator = new SimpleReactValidator({
-      element: message => <div className="text-danger m-0">{message}</div>
+      element: message => <div className="text-danger m-0">{message}</div>,
+      validators: {
+        match: {
+          message: "Do not match the password.",
+          rule: val => val === this.state.password
+        }
+      }
     });
   }
 
@@ -110,6 +117,23 @@ class Signup extends Component {
                 "required"
               )}
             </div>
+
+            <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="confirm"
+              value={this.state.confirm}
+              className="form-control"
+              placeholder="Retype password"
+              onChange={this.changeHandler}
+            />
+            {this.validator.message(
+              "confirm",
+              this.state.confirm,
+              "required"
+            )}
+          </div>
 
             <div className="form-group">
               <button type="submit" class="btn btn-primary btn-block">
