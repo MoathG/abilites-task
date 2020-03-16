@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SimpleReactValidator from "simple-react-validator";
+import Axios from "axios";
 
 class Login extends Component {
   constructor(props) {
@@ -20,22 +21,33 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-
-    // console.log(e.target.value);
   };
 
   submitHandler = e => {
     e.preventDefault();
 
     if (this.validator.allValid()) {
-      // console.log("done");
+      this.callApi();
     } else {
-      // console.log("error");
       this.validator.showMessages();
       this.forceUpdate();
     }
+  };
 
-    console.log("malna");
+  callApi = () => {
+    Axios.post("http://localhost:4000/login", { ...this.state })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.props.history  .push({
+            pathname: "/home",
+            data: res.data
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {

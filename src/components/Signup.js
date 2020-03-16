@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SimpleReactValidator from "simple-react-validator";
+import Axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
@@ -10,11 +11,18 @@ class Signup extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      confirm: ""
     };
 
     this.validator = new SimpleReactValidator({
-      element: message => <div className="text-danger m-0">{message}</div>
+      element: message => <div className="text-danger m-0">{message}</div>,
+      validators: {
+        match: {
+          message: "Do not match the password.",
+          rule: val => val === this.state.password
+        }
+      }
     });
   }
 
@@ -28,15 +36,28 @@ class Signup extends Component {
     e.preventDefault();
 
     if (this.validator.allValid()) {
-      // console.log("done");
+      this.callApi();
     } else {
-      // console.log("error");
       this.validator.showMessages();
       this.forceUpdate();
     }
-
-    console.log("malna");
   };
+
+  callApi = () => {
+    Axios.post('http://localhost:4000/sign-up', {...this.state})
+    .then(res => {
+      console.log(res);
+      if(res.status === 201) {
+        this.props.history.push({
+          path: '/home',
+          data: res.data
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
 
   render() {
     return (
@@ -47,14 +68,14 @@ class Signup extends Component {
               <label>First Name</label>
               <input
                 type="text"
-                name="firstname"
+                name="firstName"
                 placeholder="First Name"
                 value={this.state.firstName}
                 className="form-control"
                 onChange={this.changeHandler}
               />
               {this.validator.message(
-                "firstname",
+                "firstName",
                 this.state.firstName,
                 "required|alpha_space"
               )}
@@ -64,14 +85,14 @@ class Signup extends Component {
               <label>Last Name</label>
               <input
                 type="text"
-                name="lastname"
+                name="lastName"
                 placeholder="Last Name"
                 value={this.state.lastName}
                 className="form-control"
                 onChange={this.changeHandler}
               />
               {this.validator.message(
-                "lastname",
+                "lastName",
                 this.state.lastName,
                 "required|alpha_space"
               )}
@@ -107,12 +128,29 @@ class Signup extends Component {
               {this.validator.message(
                 "password",
                 this.state.password,
-                "required"
+                "required|min:8|max:50"
               )}
             </div>
 
             <div className="form-group">
-              <button type="submit" class="btn btn-primary btn-block">
+            <label>Password</label>
+            <input
+              type="password"
+              name="confirm"
+              value={this.state.confirm}
+              className="form-control"
+              placeholder="Retype password"
+              onChange={this.changeHandler}
+            />
+            {this.validator.message(
+              "confirm",
+              this.state.confirm,
+              "required|match"
+            )}
+          </div>
+
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-block">
                 Primary
               </button>
               <small>

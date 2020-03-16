@@ -28,3 +28,20 @@
 .navbar-brand:hover {
   color: #ffffff;
 }
+
+.container-fluid{
+  background-color: #258ea6;
+  height: 100vh;
+}
+
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 30px auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card img{
+  width: 100%;
+}
