@@ -1,0 +1,30 @@
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  background-color: #258ea6;
+}
+
+.form-container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  position: relative;
+  top: 80px;
+}
+
+.navbar {
+  background-color: #196374;
+}
+
+.navbar-brand,
+.nav-item {
+  color: #b9d5d5;
+}
+
+.nav-item:hover,
+.navbar-brand:hover {
+  color: #ffffff;
+}
