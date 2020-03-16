@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SimpleReactValidator from "simple-react-validator";
+import Axios from "axios";
 
 class Login extends Component {
   constructor(props) {
@@ -26,12 +27,22 @@ class Login extends Component {
     e.preventDefault();
 
     if (this.validator.allValid()) {
-      console.log(this.state);
+      this.callApi();
     } else {
       this.validator.showMessages();
       this.forceUpdate();
     }
   };
+
+  callApi = () => {
+    Axios.post('http://localhost:4000/login', {...this.state})
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
 
   render() {
     return (
