@@ -35,14 +35,11 @@ class Signup extends Component {
     e.preventDefault();
 
     if (this.validator.allValid()) {
-      // console.log("done");
+      console.log(this.state);
     } else {
-      // console.log("error");
       this.validator.showMessages();
       this.forceUpdate();
     }
-
-    console.log("malna");
   };
 
   render() {
@@ -114,7 +111,7 @@ class Signup extends Component {
               {this.validator.message(
                 "password",
                 this.state.password,
-                "required"
+                "required|min:8|max:50"
               )}
             </div>
 
@@ -136,7 +133,7 @@ class Signup extends Component {
           </div>
 
             <div className="form-group">
-              <button type="submit" class="btn btn-primary btn-block">
+              <button type="submit" className="btn btn-primary btn-block">
                 Primary
               </button>
               <small>
