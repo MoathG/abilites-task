@@ -38,6 +38,12 @@ class Login extends Component {
     Axios.post('http://localhost:4000/login', {...this.state})
     .then(res => {
       console.log(res);
+      if(res.status === 200) {
+        this.props.history.push({
+          path: '/home',
+          data: res.data
+        });
+      }
     })
     .catch(err => {
       console.log(err);
