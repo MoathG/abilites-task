@@ -20,22 +20,17 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-
-    // console.log(e.target.value);
   };
 
   submitHandler = e => {
     e.preventDefault();
 
     if (this.validator.allValid()) {
-      // console.log("done");
+      console.log(this.state);
     } else {
-      // console.log("error");
       this.validator.showMessages();
       this.forceUpdate();
     }
-
-    console.log("malna");
   };
 
   render() {
