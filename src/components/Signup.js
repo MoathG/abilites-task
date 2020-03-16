@@ -47,14 +47,14 @@ class Signup extends Component {
               <label>First Name</label>
               <input
                 type="text"
-                name="firstname"
+                name="firstName"
                 placeholder="First Name"
                 value={this.state.firstName}
                 className="form-control"
                 onChange={this.changeHandler}
               />
               {this.validator.message(
-                "firstname",
+                "firstName",
                 this.state.firstName,
                 "required|alpha_space"
               )}
@@ -64,14 +64,14 @@ class Signup extends Component {
               <label>Last Name</label>
               <input
                 type="text"
-                name="lastname"
+                name="lastName"
                 placeholder="Last Name"
                 value={this.state.lastName}
                 className="form-control"
                 onChange={this.changeHandler}
               />
               {this.validator.message(
-                "lastname",
+                "lastName",
                 this.state.lastName,
                 "required|alpha_space"
               )}
