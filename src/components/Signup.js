@@ -131,7 +131,7 @@ class Signup extends Component {
             {this.validator.message(
               "confirm",
               this.state.confirm,
-              "required"
+              "required|match"
             )}
           </div>
 
